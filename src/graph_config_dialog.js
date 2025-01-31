@@ -85,7 +85,7 @@ export function GraphConfigurationDialog(dialog, onSave) {
       .text(
         FlightLogFieldPresenter.fieldNameToFriendly(
           fieldName,
-          activeFlightLog.getSysConfig().debug_mode
+          activeFlightLog.getSysConfig()
         )
       )
       .attr("value", fieldName);

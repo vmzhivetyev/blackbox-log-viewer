@@ -1,5 +1,5 @@
 import { FlightLogFieldPresenter } from "./flightlog_fields_presenter";
-import { adjustFieldDefsList, FlightLogEvent } from "./flightlog_fielddefs";
+import { adjustFieldDefsList, FlightLogEvent, DEBUG_MODE } from "./flightlog_fielddefs";
 import { ArrayDataStream } from "./datastream";
 import "./decoders";
 import {
@@ -277,6 +277,7 @@ export function FlightLogParser(logData) {
       gyro_soft_type: null, // Gyro soft filter type (PT1, BIQUAD, PT2, PT3)
       gyro_soft2_type: null, // Gyro soft filter 2 type (PT1, BIQUAD, PT2, PT3)
       debug_mode: null, // Selected Debug Mode
+      debug_mode_name: null, // string value from strings defined in betaflight source code
       features: null, // Activated features (e.g. MOTORSTOP etc)
       Craft_name: null, // Craft Name
       motorOutput: [null, null], // Minimum and maximum outputs to motor's
@@ -360,6 +361,7 @@ export function FlightLogParser(logData) {
     // on the right are older field names that must exist in the list above
 
     translationValues = {
+      DEBUG_MODE: "debug_mode_name",
       acc_limit_yaw: "yawRateAccelLimit",
       accel_limit: "rateAccelLimit",
       acc_limit: "rateAccelLimit",
@@ -889,7 +891,9 @@ export function FlightLogParser(logData) {
       case "chirp_frequency_end_deci_hz":
       case "chirp_time_seconds":
       case "dterm_lpf_dyn_hz":
+      case "debug_mode_name":
         that.sysConfig[fieldName] = parseCommaSeparatedString(fieldValue);
+        console.log(fieldName + ' ' + that.sysConfig[fieldName]);
         break;
       case "magPID":
         that.sysConfig.magPID = parseCommaSeparatedString(fieldValue, 3); //[parseInt(fieldValue, 10), null, null];
@@ -1831,6 +1835,10 @@ export function FlightLogParser(logData) {
       that.sysConfig.firmwareType,
       that.sysConfig.firmwareVersion
     );
+
+    // either there is "DEBUG_MODE" header with string name of the debug mode used
+    // or there is only "debug_mode" which has integer index of the debug mode.
+    that.sysConfig.debug_mode_name = that.sysConfig.debug_mode_name || DEBUG_MODE[that.sysConfig.debug_mode];
 
     if (!isFrameDefComplete(this.frameDefs.I)) {
       throw "Log is missing required definitions for I frames, header may be corrupt";

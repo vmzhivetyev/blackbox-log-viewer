@@ -1786,7 +1786,7 @@ export function HeaderDialog(dialog, onSave) {
     }
     renderSelect("gyro_soft_type", sysConfig.gyro_soft_type, FILTER_TYPE);
     renderSelect("gyro_soft2_type", sysConfig.gyro_soft2_type, FILTER_TYPE);
-    renderSelect("debug_mode", sysConfig.debug_mode, DEBUG_MODE);
+    renderSelect("debug_mode", sysConfig.debug_mode_name, [sysConfig.debug_mode_name]);
     setParameter("motorOutputLow", sysConfig.motorOutput[0], 0);
     setParameter("motorOutputHigh", sysConfig.motorOutput[1], 0);
     setParameter("motor_idle", sysConfig.motor_idle, 2);

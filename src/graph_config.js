@@ -73,7 +73,7 @@ export function GraphConfig(graphConfig) {
                 name: fieldName,
                 friendlyName: FlightLogFieldPresenter.fieldNameToFriendly(
                   fieldName,
-                  flightLog.getSysConfig().debug_mode
+                  flightLog.getSysConfig()
                 ),
               }),
               forceNewCurve
@@ -91,7 +91,7 @@ export function GraphConfig(graphConfig) {
               curve: $.extend({}, field.curve),
               friendlyName: FlightLogFieldPresenter.fieldNameToFriendly(
                 field.name,
-                flightLog.getSysConfig().debug_mode
+                flightLog.getSysConfig()
               ),
             })
           )
@@ -484,8 +484,8 @@ GraphConfig.getDefaultCurveForField = function (flightLog, fieldName) {
           max: 360,
         },
       };
-    } else if (fieldName.match(/^debug.*/) && sysConfig.debug_mode != null) {
-      const debugModeName = DEBUG_MODE[sysConfig.debug_mode];
+    } else if (fieldName.match(/^debug.*/) && sysConfig.debug_mode_name != null) {
+      const debugModeName = sysConfig.debug_mode_name;
       switch (debugModeName) {
         case "CYCLETIME":
           switch (fieldName) {

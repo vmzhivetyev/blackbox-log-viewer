@@ -1786,7 +1786,7 @@ FlightLogFieldPresenter.decodeDebugFieldToFriendly = function (
   value
 ) {
   if (flightLog) {
-    const debugModeName = DEBUG_MODE[flightLog.getSysConfig().debug_mode]; // convert to recognisable name
+    const debugModeName = flightLog.getSysConfig().debug_mode_name;
     switch (debugModeName) {
       case "NONE":
       case "AIRMODE":
@@ -2209,10 +2209,11 @@ FlightLogFieldPresenter.decodeDebugFieldToFriendly = function (
   return value.toFixed(0);
 };
 
-FlightLogFieldPresenter.fieldNameToFriendly = function (fieldName, debugMode) {
-  if (debugMode) {
+FlightLogFieldPresenter.fieldNameToFriendly = function (fieldName, sysConfig) {
+  const debugModeName = sysConfig.debug_mode_name;
+
+  if (debugModeName) {
     if (fieldName.includes("debug")) {
-      let debugModeName = DEBUG_MODE[debugMode];
       let debugFields;
 
       if (debugModeName) {
@@ -2480,7 +2481,8 @@ FlightLogFieldPresenter.ConvertDebugFieldValue = function (
   value
 ) {
   if (flightLog) {
-    const debugModeName = DEBUG_MODE[flightLog.getSysConfig().debug_mode]; // convert to recognisable name
+    const debugModeName = flightLog.getSysConfig().debug_mode_name;
+
     switch (debugModeName) {
       case "NONE":
       case "AIRMODE":

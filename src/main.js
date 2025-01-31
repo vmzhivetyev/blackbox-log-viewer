@@ -212,7 +212,7 @@ function BlackboxLogViewer() {
               `<tr>` +
               `<td>${fieldPresenter.fieldNameToFriendly(
                 fieldNames[i],
-                flightLog.getSysConfig().debug_mode
+                flightLog.getSysConfig()
               )}</td>` +
               `<td class="raw-value">${atMost2DecPlaces(frame[i])}</td>` +
               `<td>${fieldPresenter.decodeFieldToFriendly(
@@ -227,7 +227,7 @@ function BlackboxLogViewer() {
             row +=
               `<td>${fieldPresenter.fieldNameToFriendly(
                 fieldNames[secondColumn],
-                flightLog.getSysConfig().debug_mode
+                flightLog.getSysConfig()
               )}</td>` +
               `<td>${atMost2DecPlaces(frame[secondColumn])}</td>` +
               `<td>${fieldPresenter.decodeFieldToFriendly(
@@ -261,7 +261,7 @@ function BlackboxLogViewer() {
             tpl({
               name: fieldPresenter.fieldNameToFriendly(
                 stat.name,
-                flightLog.getSysConfig().debug_mode
+                flightLog.getSysConfig()
               ),
               min_raw: atMost2DecPlaces(stat.min),
               min: FlightLogFieldPresenter.decodeFieldToFriendly(
